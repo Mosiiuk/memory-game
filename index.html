@@ -9,7 +9,8 @@
   </head>
   <body>
     <script>
-      function createTable(cards) {
+      const openCards = [];
+      function createTable() {
         const body = document.getElementsByTagName("body")[0];
         const gameTable = document.createElement("div");
         gameTable.classList.add('gameTable');
@@ -18,21 +19,42 @@
           w: 4,
           h: 5,
         }
-
+        
         for (let i = 0; i < size.w; i++) {
           let row = document.createElement("div");
           row.classList.add('row');
           gameTable.appendChild(row);
 
           for (let k = 0; k < size.h; k++){
-            let column = document.createElement('div');
-            column.classList.add('card')
-            row.appendChild(column);
+            let card = document.createElement('div');
+            card.classList.add('card');
+            card.setAttribute('data-x', k);
+            card.setAttribute('data-y', i);
+            card.addEventListener('click', openCard);
+            row.appendChild(card);
           }
         }        
       }
+      createTable();
 
-      createTable(16);
+      function openCard (event) {
+        const div = event.target;
+        const coords = {
+          x: div.dataset.x,
+          y: div.dataset.y,
+        }
+        const divCoord = coords.x + ':' + coords.y;
+        if(openCards.includes(divCoord)){
+          const index = openCards.indexOf(divCoord);
+          openCards.splice(index, 1);
+          div.classList.remove('open');
+        } else {
+          openCards.push(divCoord);
+          div.classList.add('open');
+        }
+        console.log(openCards)
+      }
+      
     </script>
   </body>
 </html>
