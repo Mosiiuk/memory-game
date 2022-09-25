@@ -19,7 +19,19 @@
           w: 4,
           h: 5,
         }
+        const cardArr = [];
+
+        for (let i = 0; i < size.w * size.h / 2; i++){
+          cardArr.push(i);
+          cardArr.push(i);
+        }
         
+        cardArr.sort((a, b) => 0.5 - Math.random());
+
+        function nextContent () {
+          return cardArr.pop();
+        }
+
         for (let i = 0; i < size.w; i++) {
           let row = document.createElement("div");
           row.classList.add('row');
@@ -30,6 +42,7 @@
             card.classList.add('card');
             card.setAttribute('data-x', k);
             card.setAttribute('data-y', i);
+            card.setAttribute('data-content', nextContent())
             card.addEventListener('click', openCard);
             row.appendChild(card);
           }
@@ -48,9 +61,11 @@
           const index = openCards.indexOf(divCoord);
           openCards.splice(index, 1);
           div.classList.remove('open');
+          div.innerHTML = '';
         } else {
           openCards.push(divCoord);
           div.classList.add('open');
+          div.innerHTML = div.dataset.content;
         }
         console.log(openCards)
       }
