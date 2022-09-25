@@ -10,66 +10,114 @@
   <body>
     <script>
       const openCards = [];
+      let cardsOpenAll = 0;
+      const size = {
+        w: 4,
+        h: 5,
+      };
+      let attempts = 0;
+
       function createTable() {
         const body = document.getElementsByTagName("body")[0];
         const gameTable = document.createElement("div");
-        gameTable.classList.add('gameTable');
+        gameTable.classList.add("gameTable");
         body.appendChild(gameTable);
-        const size = {
-          w: 4,
-          h: 5,
-        }
+
         const cardArr = [];
 
-        for (let i = 0; i < size.w * size.h / 2; i++){
+        for (let i = 0; i < (size.w * size.h) / 2; i++) {
           cardArr.push(i);
           cardArr.push(i);
         }
-        
+
         cardArr.sort((a, b) => 0.5 - Math.random());
 
-        function nextContent () {
+        function nextContent() {
           return cardArr.pop();
         }
 
         for (let i = 0; i < size.w; i++) {
           let row = document.createElement("div");
-          row.classList.add('row');
+          row.classList.add("row");
           gameTable.appendChild(row);
 
-          for (let k = 0; k < size.h; k++){
-            let card = document.createElement('div');
-            card.classList.add('card');
-            card.setAttribute('data-x', k);
-            card.setAttribute('data-y', i);
-            card.setAttribute('data-content', nextContent())
-            card.addEventListener('click', openCard);
+          for (let k = 0; k < size.h; k++) {
+            let card = document.createElement("div");
+            card.classList.add("card");
+            card.setAttribute("data-x", k);
+            card.setAttribute("data-y", i);
+            card.setAttribute("data-content", nextContent());
+            card.addEventListener("click", openCard);
             row.appendChild(card);
           }
-        }        
+        }
       }
       createTable();
 
-      function openCard (event) {
+      function closeAllCards() {
+        for (let i = 0; i < openCards.length; i++) {
+          const elements = openCards[i].split(":");
+          const x = elements[0];
+          const y = elements[1];
+
+          const closeCard = document.querySelector(
+            `.card[data-x='${x}'][data-y='${y}']`
+          );
+          closeCard.innerHTML = "";
+          console.log(closeCard);
+          closeCard.classList.remove("open");
+        }
+        openCards.splice(0);
+      }
+
+      function openCard(event) {
         const div = event.target;
         const coords = {
           x: div.dataset.x,
           y: div.dataset.y,
-        }
-        const divCoord = coords.x + ':' + coords.y;
-        if(openCards.includes(divCoord)){
-          const index = openCards.indexOf(divCoord);
-          openCards.splice(index, 1);
-          div.classList.remove('open');
-          div.innerHTML = '';
-        } else {
+        };
+        const divCoord = coords.x + ":" + coords.y;
+        if (!openCards.includes(divCoord)) {
+          if (openCards.length == 2) {
+            closeAllCards();
+          }
+
           openCards.push(divCoord);
-          div.classList.add('open');
+          div.classList.add("open");
           div.innerHTML = div.dataset.content;
+
+          if (openCards.length == 2) {
+            attempts += 1;
+            const elements1 = openCards[0].split(":");
+            const x1 = elements1[0];
+            const y1 = elements1[1];
+
+            const card1 = document.querySelector(
+              `.card[data-x='${x1}'][data-y='${y1}']`
+            );
+
+            const elements2 = openCards[1].split(":");
+            const x2 = elements2[0];
+            const y2 = elements2[1];
+
+            const card2 = document.querySelector(
+              `.card[data-x='${x2}'][data-y='${y2}']`
+            );
+
+            const content1 = card1.dataset.content;
+            const content2 = card2.dataset.content;
+
+            if (content1 == content2) {
+              openCards.splice(0);
+              cardsOpenAll += 2;
+              if (cardsOpenAll == size.h * size.w) {
+                setTimeout(() => alert(`Ви перемогли через ${attempts} спроб`));
+              }
+            }
+          }
         }
-        console.log(openCards)
+        console.log(openCards);
       }
-      
     </script>
   </body>
 </html>
