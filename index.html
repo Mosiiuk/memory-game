@@ -9,29 +9,21 @@
   </head>
   <body>
     <script>
-      function createTable() {
+      function createTable(cards) {
         const body = document.getElementsByTagName("body")[0];
-        const creatTable = document.createElement("table");
-        const creatTbody = document.createElement("tbody");
+        const creatTable = document.createElement("div");
+        creatTable.classList.add('gameTable')
 
-        for (let a = 0; a < 4; a++) {
-          let row = document.createElement("tr");
-
-          for (let i = 0; i < 4; i++) {
-            let element = document.createElement("td");
-            let card = document.createElement("div");
-
-            element.appendChild(card);
-            row.appendChild(element);
-            card.style.backgroundColor = 'red';
-          }
-          creatTbody.appendChild(row);
+        for (let i = 0; i < cards; i++) {
+          let card = document.createElement("div");
+          // card.style.backgroundColor = "red";
+          card.classList.add("img");
+          creatTable.appendChild(card);
         }
-        creatTable.appendChild(creatTbody);
         body.appendChild(creatTable);
       }
 
-      createTable();
+      createTable(16);
     </script>
   </body>
 </html>
