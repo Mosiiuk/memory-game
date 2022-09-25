@@ -11,16 +11,25 @@
     <script>
       function createTable(cards) {
         const body = document.getElementsByTagName("body")[0];
-        const creatTable = document.createElement("div");
-        creatTable.classList.add('gameTable')
-
-        for (let i = 0; i < cards; i++) {
-          let card = document.createElement("div");
-          // card.style.backgroundColor = "red";
-          card.classList.add("img");
-          creatTable.appendChild(card);
+        const gameTable = document.createElement("div");
+        gameTable.classList.add('gameTable');
+        body.appendChild(gameTable);
+        const size = {
+          w: 4,
+          h: 5,
         }
-        body.appendChild(creatTable);
+
+        for (let i = 0; i < size.w; i++) {
+          let row = document.createElement("div");
+          row.classList.add('row');
+          gameTable.appendChild(row);
+
+          for (let k = 0; k < size.h; k++){
+            let column = document.createElement('div');
+            column.classList.add('card')
+            row.appendChild(column);
+          }
+        }        
       }
 
       createTable(16);
