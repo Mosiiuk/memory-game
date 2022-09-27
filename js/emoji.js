@@ -1,4 +1,4 @@
-const emoji = [
+export const ALL_EMOJIS = [
   "🚐",
   "🏕️",
   "🏝️",
@@ -30,5 +30,3 @@ const emoji = [
   "🥘",
   "🍲",
 ];
-
-export { emoji };
