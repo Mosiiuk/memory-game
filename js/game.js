@@ -9,9 +9,9 @@ function getFieldSize(difficulty) {
     case "easy":
       return { w: 2, h: 2 };
     case "normal":
-      return { w: 3, h: 3 };
+      return { w: 3, h: 4 };
     case "hard":
-      return { w: 5, h: 5 };
+      return { w: 5, h: 4 };
     default:
       throw Error(`Incorrect difficutly: ${difficulty}`);
   }
@@ -58,17 +58,16 @@ function win(onRestart) {
 
   const titleVictory = document.createElement("div");
   titleVictory.classList.add("titleVictory");
-  titleVictory.innerHTML = "Ви виграли";
+  titleVictory.innerHTML = "You win";
   victory.appendChild(titleVictory);
 
   const btnVictory = document.createElement("button");
   btnVictory.classList.add("btnVictory");
-  btnVictory.innerHTML = "Рестарт";
+  btnVictory.classList.add("level-button");
+  btnVictory.innerHTML = "Restart";
   btnVictory.addEventListener("click", onRestart);
   victory.appendChild(btnVictory);
 }
-
-function restart() {}
 
 function createGameField(app, game, onCardClicked) {
   const gameTable = document.createElement("div");
@@ -89,6 +88,7 @@ function createGameField(app, game, onCardClicked) {
     for (let x = 0; x < game.w; x++) {
       const card = document.createElement("div");
       card.classList.add("card");
+      card.classList.add("cardAnimation");
       card.setAttribute("data-x", x);
       card.setAttribute("data-y", y);
       card.setAttribute("data-content", nextContent());

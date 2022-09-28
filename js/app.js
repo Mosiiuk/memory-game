@@ -26,6 +26,10 @@ function createMenu() {
   title.innerHTML = "Hello, welcome to Memory Game.";
   menu.appendChild(title);
 
+  const subTitle = m("h3", "subTitle");
+  subTitle.innerHTML = "Select the difficulty level";
+  menu.appendChild(subTitle);
+
   // Buttons
 
   const buttons = m("div", "buttonsContainer");
