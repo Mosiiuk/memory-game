@@ -27,7 +27,6 @@ button {
   gap: 10px;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
   justify-content: center;
   height: 100vh;
 }
@@ -181,4 +180,33 @@ button {
   margin: 15px auto;
   font-size: 26px;
   /* padding: 15px 50px; */
+}
+
+@media (max-width: 1500px) {
+  .card {
+    width: 120px;
+    height: 120px;
+  }
+}
+@media (max-width: 1200px) {
+  .title {
+    font-size: 30px;
+  }
+  .subTitle {
+    font-size: 15px;
+  }
+}
+@media (max-width: 990px) {
+  .card {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  .buttonsContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .level-button {
+    margin-top: 15px;
+  }
 }

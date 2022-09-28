@@ -9,7 +9,7 @@ function getFieldSize(difficulty) {
     case "easy":
       return { w: 2, h: 2 };
     case "normal":
-      return { w: 3, h: 4 };
+      return { w: 4, h: 3 };
     case "hard":
       return { w: 5, h: 4 };
     default:
